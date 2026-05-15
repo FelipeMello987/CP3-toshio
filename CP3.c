@@ -1,34 +1,70 @@
 #include <stdio.h>
 
-int main() {
-    int decisao, saque, saldo;
+int saque(int saldo) {
+    int valor;  
 
-    saldo = 5000;
-    decisao = 0;
+    printf("===== SAQUE =====\n");
+    printf("Saldo em conta: R$ %d\n", saldo);
+    printf("Digite o valor do saque: ");
+    scanf("%d", &valor);
 
-    printf("Escolha uma das seguintes opcoes:\n1-Saque\n2-Deposito\n3-Sair\n");
-    scanf("%d", &decisao);
-
-    while(decisao == 1 || decisao == 2) {
-        if (decisao == 1) {
-            printf("=====SAQUE=====\nSaldo em conta: %dR$\n", saldo);
-            printf("Digite o quanto deseja sacar: ");
-            scanf("%d", &saque);
-            if (saque > saldo || saque <= 0) {
-                printf("\nErro: valor invalido\n");
-                return;
-            } else {
-                printf("\nSacando %d...\n", saque);
-                saldo = saldo - saque;
-                printf("Saque realizado com sucesso!!\nSaldo atual %d", saldo);
-            }
-
-        }
-        printf("Deseja realizar mais alguma transacao?\n");
-        printf("1-Saque\n2-Deposito\n3-Sair\n");
-        printf("OBRIHGADO POR ESCOLHER ATMFODASe");
+    if (valor > saldo || valor <= 0) {
+        printf("\nErro: valor invalido.\n");
+    } else {
+        saldo = saldo - valor;
+        printf("Saque realizado com sucesso\n");
+        printf("Saldo atual: R$ %d\n", saldo);
     }
 
-    return 0;
+    return saldo;
+}
 
+int deposito(int saldo) {
+    int valor;
+
+    printf("===== DEPOSITO =====\n");
+    printf("Saldo em conta: R$ %d\n", saldo);
+    printf("Digite o valor do deposito: ");
+    scanf("%d", &valor);
+
+    if (valor <= 0) {
+        printf("\nErro: valor invalido.\n");
+    } else {
+        saldo = saldo + valor;
+        printf("\nDepositando R$ %d...\n", valor);
+        printf("Deposito realizado com sucesso\n");
+        printf("Saldo atual: R$ %d\n", saldo);
+    }
+
+    return saldo;
+}
+
+int main() {
+    int decisao;
+    int saldo = 5000;
+
+    do {
+        printf("\n===== CAIXA ELETRONICO =====\n");
+        printf("1 - Saque\n");
+        printf("2 - Deposito\n");
+        printf("3 - Sair\n");
+        printf("Escolha uma opcao: ");
+        scanf("%d", &decisao);
+
+        if (decisao == 1) {
+            saldo = saque(saldo);
+        }
+        else if (decisao == 2) {
+            saldo = deposito(saldo);
+        }
+        else if (decisao == 3) {
+            printf("\nFECHANDO ATM.\n");
+        }
+        else {
+            printf("\nOpcao invalida\n");
+        }
+
+    } while (decisao != 3);
+
+    return 0;
 }
